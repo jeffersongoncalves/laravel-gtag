@@ -12,6 +12,8 @@
 
 This Laravel package provides a straightforward integration of Google Analytics using Gtag into your Blade templates. It enables you to easily track website visits and user engagement, offering valuable insights into your site's performance. With minimal setup, you can leverage Gtag's powerful analytics features to better understand your audience and improve your website's effectiveness.
 
+Settings are stored in the database using [spatie/laravel-settings](https://github.com/spatie/laravel-settings), allowing dynamic management via admin panels or code.
+
 ## Installation
 
 You can install the package via composer:
@@ -20,19 +22,74 @@ You can install the package via composer:
 composer require jeffersongoncalves/laravel-gtag
 ```
 
-## Usage
-
-Publish config file.
+Publish and run the settings migration:
 
 ```bash
-php artisan vendor:publish --tag=gtag-config
+php artisan vendor:publish --tag=gtag-settings-migrations
+php artisan migrate
 ```
 
-Add head template.
+## Usage
+
+Add the script tag to your Blade layout (typically in the `<head>`):
 
 ```php
 @include('gtag::script')
 ```
+
+### Configuration via Code
+
+You can update settings at any time using the `GtagSettings` class, the `gtag_settings()` helper, or the `Gtag` facade:
+
+```php
+use JeffersonGoncalves\Gtag\Settings\GtagSettings;
+
+// Via container
+$settings = app(GtagSettings::class);
+$settings->gtag_id = 'G-XXXXXXXXXX';
+$settings->enabled = true;
+$settings->save();
+
+// Via helper
+gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
+gtag_settings()->save();
+
+// Via Facade
+use JeffersonGoncalves\Gtag\Facades\Gtag;
+
+$gtag = Gtag::getFacadeRoot();
+$gtag->gtag_id = 'G-XXXXXXXXXX';
+$gtag->save();
+```
+
+### Available Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `gtag_id` | `?string` | `null` | Google Tag ID (e.g., `G-XXXXXXXXXX`) |
+| `enabled` | `bool` | `true` | Enable/disable script rendering |
+| `anonymize_ip` | `bool` | `false` | Anonymize visitor IPs (GDPR compliance) |
+| `additional_config` | `array` | `[]` | Extra parameters for `gtag('config', ...)` |
+
+### Additional Config Example
+
+```php
+$settings = gtag_settings();
+$settings->additional_config = [
+    'send_page_view' => false,
+    'cookie_domain' => 'example.com',
+];
+$settings->save();
+```
+
+## Upgrading from v1
+
+Version 2 replaces the `config/gtag.php` configuration file with database settings via `spatie/laravel-settings`. This is a **breaking change**.
+
+1. Remove the old config file: `config/gtag.php`
+2. Remove the `GTAG_ID` environment variable (no longer used)
+3. Publish and run the settings migration
+4. Set your Google Tag ID via code (see Usage above)
 
 ## Testing
 
