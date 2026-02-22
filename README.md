@@ -22,9 +22,10 @@ You can install the package via composer:
 composer require jeffersongoncalves/laravel-gtag
 ```
 
-Publish and run the settings migration:
+Publish and run the settings migrations:
 
 ```bash
+php artisan vendor:publish --provider="Spatie\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
 php artisan vendor:publish --tag=gtag-settings-migrations
 php artisan migrate
 ```

@@ -26,13 +26,13 @@ All notable changes to this project will be documented in this file.
    ```bash
    php artisan vendor:publish --tag=gtag-settings-migrations
    php artisan migrate
-   
+
    ```
 4. Set your Google Tag ID via code:
    ```php
    gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
    gtag_settings()->save();
-   
+
    ```
 
 ## 1.0.0 - 2025-05-01
