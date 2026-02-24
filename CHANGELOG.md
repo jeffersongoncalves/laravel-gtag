@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.0.1 - 2026-02-24
+
+### What's Changed
+
+- Add Laravel 13.x support in composer.json
+- Add orchestra/testbench ^11.0 for Laravel 13 testing
+
 ## v2.0.0 - 2026-02-20
 
 ### Breaking Changes
@@ -26,13 +33,15 @@ All notable changes to this project will be documented in this file.
    ```bash
    php artisan vendor:publish --tag=gtag-settings-migrations
    php artisan migrate
-
+   
+   
    ```
 4. Set your Google Tag ID via code:
    ```php
    gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
    gtag_settings()->save();
-
+   
+   
    ```
 
 ## 1.0.0 - 2025-05-01
