@@ -1,6 +1,6 @@
 <div class="filament-hidden">
 
-![Laravel Google Analytics](https://raw.githubusercontent.com/jeffersongoncalves/laravel-gtag/master/art/jeffersongoncalves-laravel-gtag.png)
+![Laravel Gtag](https://raw.githubusercontent.com/jeffersongoncalves/laravel-gtag/master/art/jeffersongoncalves-laravel-gtag.png)
 
 </div>
 
