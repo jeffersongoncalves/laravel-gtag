@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.0.3 - 2026-05-23
+
+**Full Changelog**: https://github.com/jeffersongoncalves/laravel-gtag/compare/v2.0.2...v2.0.3
+
 ## v2.0.2 - 2026-04-26
 
 ### What's Changed
@@ -45,11 +49,13 @@ All notable changes to this project will be documented in this file.
    
    
    
+   
    ```
 4. Set your Google Tag ID via code:
    ```php
    gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
    gtag_settings()->save();
+   
    
    
    
