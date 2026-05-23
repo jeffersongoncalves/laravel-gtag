@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.0.2 - 2026-04-26
+
+### What's Changed
+
+* build(deps): bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/jeffersongoncalves/laravel-gtag/pull/12
+* build(deps): bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/jeffersongoncalves/laravel-gtag/pull/13
+
+**Full Changelog**: https://github.com/jeffersongoncalves/laravel-gtag/compare/v2.0.1...v2.0.2
+
 ## v2.0.1 - 2026-02-24
 
 ### What's Changed
@@ -35,11 +44,13 @@ All notable changes to this project will be documented in this file.
    php artisan migrate
    
    
+   
    ```
 4. Set your Google Tag ID via code:
    ```php
    gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
    gtag_settings()->save();
+   
    
    
    ```
