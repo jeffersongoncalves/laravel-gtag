@@ -1,10 +1,14 @@
 @php
+    use Illuminate\Support\Js;
+
     $settings = app(\JeffersonGoncalves\Gtag\Settings\GtagSettings::class);
+
+    $hasValidId = ! empty($settings->gtag_id) && preg_match('/^[A-Z]+-[A-Z0-9]+$/', $settings->gtag_id) === 1;
 @endphp
 
-@if($settings->enabled && !empty($settings->gtag_id))
+@if($settings->enabled && $hasValidId)
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->gtag_id }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($settings->gtag_id) }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -21,9 +25,9 @@
         @endphp
 
         @if(!empty($configParams))
-            gtag('config', '{{ $settings->gtag_id }}', {!! json_encode($configParams, JSON_UNESCAPED_SLASHES) !!});
+            gtag('config', {{ Js::from($settings->gtag_id) }}, @json($configParams, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES));
         @else
-            gtag('config', '{{ $settings->gtag_id }}');
+            gtag('config', {{ Js::from($settings->gtag_id) }});
         @endif
     </script>
 @endif

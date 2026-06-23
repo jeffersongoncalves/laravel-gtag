@@ -11,7 +11,7 @@ use JeffersonGoncalves\Gtag\Settings\GtagSettings;
  * @property bool $anonymize_ip
  * @property array $additional_config
  *
- * @see \JeffersonGoncalves\Gtag\Settings\GtagSettings
+ * @see GtagSettings
  */
 class Gtag extends Facade
 {

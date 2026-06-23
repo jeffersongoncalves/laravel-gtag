@@ -3,6 +3,7 @@
 namespace JeffersonGoncalves\Gtag\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use JeffersonGoncalves\Gtag\GtagServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -61,7 +62,7 @@ class TestCase extends Orchestra
         ];
 
         foreach ($defaults as $setting) {
-            \Illuminate\Support\Facades\DB::table('settings')->insert(
+            DB::table('settings')->insert(
                 array_merge($setting, [
                     'created_at' => now(),
                     'updated_at' => now(),
