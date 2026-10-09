@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v3.1.0 - 2026-10-09
+
+Scripts carry the CSP nonce when the app sets one (Laravel's `Vite::cspNonce()`, e.g. through laravel-security-headers 2.1), so a policy can allow them with `'nonce-{nonce}'` instead of `'unsafe-inline'`. Nothing changes for apps without a nonce.
+
 ## v3.0.0 - 2026-08-01
 
 ### Security
@@ -62,11 +66,13 @@ Drop Laravel 11 support (EOL, unpatched). Require `laravel/framework: ^12.61.1|^
    
    
    
+   
    ```
 4. Set your Google Tag ID via code:
    ```php
    gtag_settings()->gtag_id = 'G-XXXXXXXXXX';
    gtag_settings()->save();
+   
    
    
    
