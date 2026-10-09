@@ -4,12 +4,15 @@
     $settings = app(\JeffersonGoncalves\Gtag\Settings\GtagSettings::class);
 
     $hasValidId = ! empty($settings->gtag_id) && preg_match('/^[A-Z]+-[A-Z0-9]+$/', $settings->gtag_id) === 1;
+
+    // CSP nonce (Laravel's Vite nonce, set by e.g. laravel-security-headers); null when the app uses none.
+    $nonce = \Illuminate\Support\Facades\Vite::cspNonce();
 @endphp
 
 @if($settings->enabled && $hasValidId)
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($settings->gtag_id) }}"></script>
-    <script>
+    <script @if($nonce) nonce="{{ $nonce }}" @endif async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($settings->gtag_id) }}"></script>
+    <script @if($nonce) nonce="{{ $nonce }}" @endif>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());

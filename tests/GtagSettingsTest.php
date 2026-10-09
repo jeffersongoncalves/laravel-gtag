@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Vite;
 use JeffersonGoncalves\Gtag\Facades\Gtag;
 use JeffersonGoncalves\Gtag\Settings\GtagSettings;
 
@@ -66,6 +67,26 @@ it('renders script when enabled with valid gtag_id', function () {
     expect($view)
         ->toContain('googletagmanager.com/gtag/js?id=G-TESTID123')
         ->toContain("gtag('config', 'G-TESTID123')");
+});
+
+it('adds the CSP nonce to both script tags when the app sets one', function () {
+    $settings = app(GtagSettings::class);
+    $settings->gtag_id = 'G-TESTID123';
+    $settings->enabled = true;
+    $settings->save();
+
+    Vite::useCspNonce('abc123');
+
+    expect(substr_count(view('gtag::script')->render(), 'nonce="abc123"'))->toBe(2);
+});
+
+it('renders no nonce attribute when the app uses none', function () {
+    $settings = app(GtagSettings::class);
+    $settings->gtag_id = 'G-TESTID123';
+    $settings->enabled = true;
+    $settings->save();
+
+    expect(view('gtag::script')->render())->not->toContain('nonce=');
 });
 
 it('renders anonymize_ip when enabled', function () {
