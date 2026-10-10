@@ -94,6 +94,15 @@ Version 2 replaces the `config/gtag.php` configuration file with database settin
 3. Publish and run the settings migration
 4. Set your Google Tag ID via code (see Usage above)
 
+## Google Consent Mode v2
+
+For EEA/UK visitors Google requires [Consent Mode v2](https://developers.google.com/tag-platform/security/guides/consent). [laravel-cookie-consent](https://github.com/jeffersongoncalves/laravel-cookie-consent) (4.2+) sends the consent signals: turn on its `consent_mode` setting and include its head view **before** this package's snippet, so the tags start with the right consent state:
+
+```blade
+@include('cookie-consent::cookie-consent-head')
+@include('gtag::script')
+```
+
 ## Testing
 
 ```bash
