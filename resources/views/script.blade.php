@@ -1,4 +1,7 @@
 @php
+    $cookieConsent = function_exists('cookie_consent_script_attributes') ? cookie_consent_script_attributes('gtag') : '';
+@endphp
+@php
     use Illuminate\Support\Js;
 
     $settings = app(\JeffersonGoncalves\Gtag\Settings\GtagSettings::class);
@@ -11,8 +14,8 @@
 
 @if($settings->enabled && $hasValidId)
     <!-- Google tag (gtag.js) -->
-    <script @if($nonce) nonce="{{ $nonce }}" @endif async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($settings->gtag_id) }}"></script>
-    <script @if($nonce) nonce="{{ $nonce }}" @endif>
+    <script{!! $cookieConsent !!} @if($nonce) nonce="{{ $nonce }}" @endif async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($settings->gtag_id) }}"></script>
+    <script{!! $cookieConsent !!} @if($nonce) nonce="{{ $nonce }}" @endif>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
